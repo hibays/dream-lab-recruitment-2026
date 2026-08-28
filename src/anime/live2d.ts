@@ -10,7 +10,11 @@
  */
 import type { Live2DModel as Live2DModelType } from "pixi-live2d-display/cubism4";
 
-import cubismCoreUrl from "live2dcubismcore/live2dcubismcore.min.js?url";
+// 本地自托管的 Cubism Core（置于 public/assets/live2d-core/live2dcubismcore.min.js）。
+// 来源：官方 “Cubism Core for Web” 公开 CDN 的 05 版（Cubism 5.1）核心，即
+//   https://cubism.live2d.com/sdk-web/core/05/live2dcubismcore.min.js
+// 必须避开 06 版（Cubism 6，06.00.0001）：其 drawable 访问器对 pixi-live2d-display 返回 undefined，能加载但无法绘制。
+const cubismCoreUrl = "./assets/live2d-core/live2dcubismcore.min.js";
 
 let coreReady: Promise<void> | undefined;
 
@@ -345,7 +349,7 @@ export async function mountLive2D(opts: Live2DMountOptions): Promise<Live2DHandl
     const anchorEngaged = active ? active.overrideDrag : false;
     let dx = 0;
     let dy = 0;
-    if (!reducedMotion && !dragging && !anchorEngaged && !mobile) {
+    if (!reducedMotion && !anchorEngaged && !mobile) {
       const phase = performance.now() / 900;
       dx = Math.sin(phase) * 22;
       dy = -Math.abs(Math.sin(phase)) * 5;
@@ -595,6 +599,8 @@ export async function mountLive2D(opts: Live2DMountOptions): Promise<Live2DHandl
     onReady?.();
   } catch (err) {
     console.error("[HeroLive2D] 模型加载失败：", err);
+    // 加载失败时抛出，让调用方的 .catch 显示失败态而不是永远卡在“加载中”
+    throw err;
   }
 
   function createHandle(): Live2DHandle {

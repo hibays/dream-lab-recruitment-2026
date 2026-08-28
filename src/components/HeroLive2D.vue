@@ -54,7 +54,7 @@ onUnmounted(() => {
     <div :class="$style['glow']" aria-hidden="true"></div>
     <div ref="rootRef" :class="$style['stage']" aria-hidden="true"></div>
     <p v-if="loading && !failed" :class="$style['loading']">Live2D 角色加载中…</p>
-    <p v-if="failed" :class="$style['fallback']">Live2D 模型加载失败，请检查资源路径</p>
+    <p v-if="failed" :class="$style['fallback']">Live2D 模型加载失败：资源路径或引擎加载错误</p>
   </div>
 </template>
 
