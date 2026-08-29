@@ -67,7 +67,10 @@ export function createDlabFluid(canvas: HTMLCanvasElement): DlabFluid {
 
   // 原状字标栅格：所有扰动都从它整格取样
   const source = document.createElement("canvas");
-  const sourceCtx: CanvasRenderingContext2D | null = source.getContext("2d");
+  // willReadFrequently：source 画布会反复 getImageData 做墨量采样，避免浏览器频繁回读告警与性能损耗
+  const sourceCtx: CanvasRenderingContext2D | null = source.getContext("2d", {
+    willReadFrequently: true,
+  });
 
   let width = 0;
   let height = 0;

@@ -195,10 +195,11 @@ onMounted(async () => {
     pointerTarget.y = ((event.clientY - rect.top) / Math.max(1, rect.height) - 0.5) * -2;
   }
 
-  const clock = new THREE.Clock();
+  const timer = new THREE.Timer();
 
   function draw(_now: number): void {
-    const elapsed = clock.getElapsedTime();
+    timer.update();
+    const elapsed = timer.getElapsed();
     pointer.x += (pointerTarget.x - pointer.x) * 0.04;
     pointer.y += (pointerTarget.y - pointer.y) * 0.04;
     scrollProgress += (scrollTarget - scrollProgress) * 0.06;
