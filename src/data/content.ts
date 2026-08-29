@@ -344,7 +344,7 @@ export const applyAssets = {
 
 /** 英雄区 Live2D 角色模型（官方示例 Hiyori 占位，非猫耳；替换猫娘模型只需改此路径） */
 export const heroLive2D = {
-  modelUrl: "./assets/live2d/Hiyori/Hiyori.model3.json",
+  modelUrl: "./assets/live2d/yachiyo/yachiyo.model3.json",
   note: "Live2D 官方示例模型 Hiyori（占位，非猫耳；替换为猫娘模型只需改此路径）",
 } as const;
 
